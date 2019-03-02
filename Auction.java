@@ -101,4 +101,16 @@ public class Auction
             return null;
         }
     }
+    public void close(){
+        for(Lot lote:lots){
+            Bid bid=lote.getHighestBid();
+            if(bid!=null){
+            System.out.println("Lote:"+lote.toString());
+                System.out.println("Puja más alta hecha por:"+lote.getHighestBid().getBidder().getName());
+            }
+            else{
+                System.out.println("No hay pujas");
+            }
+        }
+    }
 }
