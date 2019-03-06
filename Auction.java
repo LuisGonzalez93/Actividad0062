@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class Auction {
 
     // The list of Lots in this auction.
-
     private ArrayList<Lot> lots;
     // The number that will be given to the next lot entered
     // into this auction.
@@ -76,25 +75,16 @@ public class Auction {
      * @param lotNumber The number of the lot to return.
      */
     public Lot getLot(int lotNumber) {
-        if ((lotNumber >= 1) && (lotNumber <= lots.size())) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if (selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number "
-                        + selectedLot.getNumber()
-                        + " was returned instead of "
-                        + lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+        Lot selectedLot = null;
+        for (int i = 0; i < lots.size(); i++) {
+            if (lots.get(i).getNumber() == lotNumber) {
+                selectedLot = lots.get(i);
             }
-            return selectedLot;
-        } else {
-            System.out.println("Lot number: " + lotNumber
-                    + " does not exist.");
-            return null;
         }
+        if (selectedLot == null) {
+            System.out.println("No se ha encontrado el lote con el número: " + lotNumber);
+        }
+        return selectedLot;
     }
 
     public void close() {
@@ -126,27 +116,16 @@ public class Auction {
      * @return El lote con el número dado o null si no existe tal lote.
      */
     public Lot removeLot(int number) {
-        if ((number >= 1) && (number <= lots.size())) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(number - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if (selectedLot.getNumber() != number) {
-                System.out.println("Internal error: Lot number "
-                        + selectedLot.getNumber()
-                        + " was returned instead of "
-                        + number);
-                // Don't return an invalid lot.
-                selectedLot = null;
-            } else {
-                selectedLot = lots.remove(number - 1);
+        Lot selectedLot = null;
+        for (int i = 0; i < lots.size(); i++) {
+            if (lots.get(i).getNumber() == number) {
+                selectedLot = lots.remove(i);
             }
-            return selectedLot;
-        } else {
-            System.out.println("Lot number: " + number
-                    + " does not exist.");
-            return null;
         }
+        if (selectedLot == null) {
+            System.out.println("No se ha encontrado el lote con el número: " + number);
+        }
+        return selectedLot;
     }
 
 }
